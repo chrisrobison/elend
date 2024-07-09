@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>proposal.v3</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        background-color: #2a211c;
+        color: #bdae9d;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #bdae9d;  padding-left: 4px; }
+    div.sourceCode
+      { color: #bdae9d; background-color: #2a211c; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffff00; } /* Alert */
+    code span.an { color: #0066ff; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #44aa43; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #43a8ed; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #049b0a; } /* Char */
+    code span.cn { } /* Constant */
+    code span.co { color: #0066ff; font-weight: bold; font-style: italic; } /* Comment */
+    code span.do { color: #0066ff; font-style: italic; } /* Documentation */
+    code span.dt { text-decoration: underline; } /* DataType */
+    code span.dv { color: #44aa43; } /* DecVal */
+    code span.er { color: #ffff00; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #44aa43; } /* Float */
+    code span.fu { color: #ff9358; font-weight: bold; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #0066ff; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #43a8ed; font-weight: bold; } /* Keyword */
+    code span.op { } /* Operator */
+    code span.pp { font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #049b0a; } /* SpecialChar */
+    code span.ss { color: #049b0a; } /* SpecialString */
+    code span.st { color: #049b0a; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #049b0a; } /* VerbatimString */
+    code span.wa { color: #ffff00; font-weight: bold; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<h2
+id="the-first-sale-doctrine-a-historical-perspective-and-its-modern-relevance">The
+First-Sale Doctrine: A Historical Perspective and Its Modern
+Relevance</h2>
+<h3 id="introduction">Introduction</h3>
+<p>The first-sale doctrine has been a cornerstone of U.S. copyright law,
+balancing the interests of copyright holders and the public for over a
+century. It has facilitated the resale, rental, and lending of
+copyrighted works, contributing significantly to public access to
+literature, music, and other forms of intellectual property. However,
+the advent of digital technology and the internet has posed new
+challenges to this doctrine. This article explores the history and
+importance of the first-sale doctrine and proposes how blockchain
+technology, specifically through our eBook checkout system, can help
+maintain existing market dynamics in the digital era.</p>
+<h3 id="history-of-the-first-sale-doctrine">History of the First-Sale
+Doctrine</h3>
+<p>The first-sale doctrine originated in the early 20th century with the
+Supreme Court case <strong>Bobbs-Merrill Co. v. Straus</strong> (1908).
+The court ruled that once a copyrighted item is sold, the copyright
+owner no longer controls its distribution. This doctrine was codified in
+the Copyright Act of 1976, allowing the lawful owner of a copy of a work
+to sell, lend, or otherwise dispose of that copy without permission from
+the copyright holder.</p>
+<h3 id="importance-of-the-first-sale-doctrine">Importance of the
+First-Sale Doctrine</h3>
+<h4 id="enhancing-accessibility-and-affordability">Enhancing
+Accessibility and Affordability</h4>
+<p>The first-sale doctrine has played a crucial role in enhancing the
+accessibility and affordability of copyrighted works. It enabled the
+establishment of libraries, second-hand bookstores, and rental services,
+allowing people to access works without purchasing them new. This has
+been particularly beneficial for educational institutions and low-income
+individuals.</p>
+<h4 id="fostering-a-secondary-market">Fostering a Secondary Market</h4>
+<p>The doctrine has also fostered a robust secondary market for books,
+music, movies, and other media. This market has provided additional
+revenue streams for sellers and wider choices for consumers. It has
+allowed for the circulation of out-of-print works, preserving cultural
+and intellectual heritage.</p>
+<h4 id="balancing-interests">Balancing Interests</h4>
+<p>By limiting the control of copyright holders over the distribution of
+individual copies after the initial sale, the first-sale doctrine has
+balanced the interests of creators and the public. It has ensured that
+once a work is legally purchased, the purchaser has the right to use and
+distribute it as they see fit, within the confines of the law.</p>
+<h3 id="challenges-in-the-digital-era">Challenges in the Digital
+Era</h3>
+<p>With the rise of digital technology, the first-sale doctrine faces
+significant challenges. Digital works, unlike physical copies, can be
+copied and distributed with ease, leading to potential widespread
+unauthorized dissemination. Technological protection measures and
+digital rights management (DRM) systems have been employed to control
+access and distribution, but these measures often limit legitimate
+secondary uses of digital works.</p>
+<h4 id="impact-of-digital-networks">Impact of Digital Networks</h4>
+<p>Digital networks enable the distribution of works without
+transferring ownership of a physical copy, complicating the application
+of the first-sale doctrine. The ease of copying digital works has led
+copyright holders to retain more control over distribution, often at the
+expense of consumer rights and secondary markets.</p>
+<h4 id="legal-and-technological-measures">Legal and Technological
+Measures</h4>
+<p>The Digital Millennium Copyright Act (DMCA) of 1998 further
+complicated the landscape by providing legal support for technological
+protection measures. While these measures help prevent unauthorized
+copying, they also restrict lawful secondary uses and diminish the
+applicability of the first-sale doctrine in the digital realm.</p>
+<h3 id="blockchain-ebook-checkout-proposal-a-modern-solution">Blockchain
+eBook Checkout Proposal: A Modern Solution</h3>
+<p>To address these challenges, our blockchain eBook checkout proposal
+leverages the security and transparency of blockchain technology,
+specifically using the Stellar network and Soroban smart contracts. This
+system aims to uphold the principles of the first-sale doctrine in the
+digital age.</p>
+<h4 id="creating-and-issuing-digital-assets">Creating and Issuing
+Digital Assets</h4>
+<p>We propose creating a digital asset for each eBook on the Stellar
+network, with custom properties to manage its lending status. This
+ensures that each digital copy can be uniquely identified and
+tracked.</p>
+<h4 id="smart-contracts-for-management">Smart Contracts for
+Management</h4>
+<p>Soroban smart contracts manage the checkout and return processes,
+generating a unique token for each loan. This token is used to encrypt
+the eBook, ensuring that only the borrower can access it. Upon return,
+the token is invalidated, and the eBook is no longer accessible to the
+borrower.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode rust"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="at">#![</span>no_std<span class="at">]</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">soroban_sdk::</span><span class="op">{</span>contractimpl<span class="op">,</span> Env<span class="op">,</span> Symbol<span class="op">,</span> Address<span class="op">,</span> BytesN<span class="op">,</span> Timestamp<span class="op">};</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">pub</span> <span class="kw">struct</span> LibraryContract<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>contractimpl<span class="at">]</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">impl</span> LibraryContract <span class="op">{</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">pub</span> <span class="kw">fn</span> check_out_book(env<span class="op">:</span> Env<span class="op">,</span> book_id<span class="op">:</span> Symbol<span class="op">,</span> user<span class="op">:</span> Address<span class="op">,</span> return_date<span class="op">:</span> Timestamp) <span class="op">-&gt;</span> BytesN<span class="op">&lt;</span><span class="dv">32</span><span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> is_checked_out <span class="op">=</span> env<span class="op">.</span>storage()<span class="op">.</span>has(<span class="op">&amp;</span>book_id)<span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> is_checked_out <span class="op">{</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>            <span class="kw">let</span> checked_out_status<span class="op">:</span> <span class="dt">bool</span> <span class="op">=</span> env<span class="op">.</span>storage()<span class="op">.</span>get(<span class="op">&amp;</span>book_id)<span class="op">.</span>unwrap()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> checked_out_status <span class="op">{</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                <span class="pp">panic!</span>(<span class="st">&quot;Book is already checked out&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Update the status to checked out</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        env<span class="op">.</span>storage()<span class="op">.</span>set(<span class="op">&amp;</span>book_id<span class="op">,</span> <span class="op">&amp;</span><span class="cn">true</span>)<span class="op">;</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Store the address of the user who checked out the book</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> checked_out_by_key <span class="op">=</span> <span class="pp">Symbol::</span>from_str(<span class="st">&quot;checkedOutBy&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        env<span class="op">.</span>storage()<span class="op">.</span>set(<span class="op">&amp;</span>checked_out_by_key<span class="op">,</span> <span class="op">&amp;</span>user)<span class="op">;</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Store the return date</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> return_date_key <span class="op">=</span> <span class="pp">Symbol::</span>from_str(<span class="st">&quot;returnDate&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>        env<span class="op">.</span>storage()<span class="op">.</span>set(<span class="op">&amp;</span>return_date_key<span class="op">,</span> <span class="op">&amp;</span>return_date)<span class="op">;</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Generate a new token (e.g., a unique identifier for this checkout session)</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> new_token <span class="op">=</span> env<span class="op">.</span>random()<span class="op">.</span>generate()<span class="op">;</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> token_key <span class="op">=</span> <span class="pp">Symbol::</span>from_str(<span class="st">&quot;checkoutToken&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>        env<span class="op">.</span>storage()<span class="op">.</span>set(<span class="op">&amp;</span>token_key<span class="op">,</span> <span class="op">&amp;</span>new_token)<span class="op">;</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        new_token</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="kw">pub</span> <span class="kw">fn</span> return_book(env<span class="op">:</span> Env<span class="op">,</span> book_id<span class="op">:</span> Symbol<span class="op">,</span> user<span class="op">:</span> Address) <span class="op">{</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> is_checked_out <span class="op">=</span> env<span class="op">.</span>storage()<span class="op">.</span>has(<span class="op">&amp;</span>book_id)<span class="op">;</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">!</span>is_checked_out <span class="op">{</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>            <span class="pp">panic!</span>(<span class="st">&quot;Book does not exist&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> checked_out_status<span class="op">:</span> <span class="dt">bool</span> <span class="op">=</span> env<span class="op">.</span>storage()<span class="op">.</span>get(<span class="op">&amp;</span>book_id)<span class="op">.</span>unwrap()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">!</span>checked_out_status <span class="op">{</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>            <span class="pp">panic!</span>(<span class="st">&quot;Book is already returned&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Verify the user returning the book</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> checked_out_by_key <span class="op">=</span> <span class="pp">Symbol::</span>from_str(<span class="st">&quot;checkedOutBy&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> stored_user<span class="op">:</span> Address <span class="op">=</span> env<span class="op">.</span>storage()<span class="op">.</span>get(<span class="op">&amp;</span>checked_out_by_key)<span class="op">.</span>unwrap()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> stored_user <span class="op">!=</span> user <span class="op">{</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>            <span class="pp">panic!</span>(<span class="st">&quot;Unauthorized return&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Update the status to returned</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>        env<span class="op">.</span>storage()<span class="op">.</span>set(<span class="op">&amp;</span>book_id<span class="op">,</span> <span class="op">&amp;</span><span class="cn">false</span>)<span class="op">;</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Clear the checkout token</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> token_key <span class="op">=</span> <span class="pp">Symbol::</span>from_str(<span class="st">&quot;checkoutToken&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>        env<span class="op">.</span>storage()<span class="op">.</span>remove(<span class="op">&amp;</span>token_key)<span class="op">;</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>    <span class="kw">pub</span> <span class="kw">fn</span> verify_token(env<span class="op">:</span> Env<span class="op">,</span> token<span class="op">:</span> BytesN<span class="op">&lt;</span><span class="dv">32</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="dt">bool</span> <span class="op">{</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> token_key <span class="op">=</span> <span class="pp">Symbol::</span>from_str(<span class="st">&quot;checkoutToken&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> stored_token<span class="op">:</span> BytesN<span class="op">&lt;</span><span class="dv">32</span><span class="op">&gt;</span> <span class="op">=</span> env<span class="op">.</span>storage()<span class="op">.</span>get(<span class="op">&amp;</span>token_key)<span class="op">.</span>unwrap()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>        stored_token <span class="op">==</span> token</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>    <span class="kw">pub</span> <span class="kw">fn</span> invalidate_token(env<span class="op">:</span> Env<span class="op">,</span> book_id<span class="op">:</span> Symbol) <span class="op">{</span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> return_date_key <span class="op">=</span> <span class="pp">Symbol::</span>from_str(<span class="st">&quot;returnDate&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> stored_return_date<span class="op">:</span> Timestamp <span class="op">=</span> env<span class="op">.</span>storage()<span class="op">.</span>get(<span class="op">&amp;</span>return_date_key)<span class="op">.</span>unwrap()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> env<span class="op">.</span>now() <span class="op">&gt;</span> stored_return_date <span class="op">{</span></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>            <span class="co">// Update the status to returned</span></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>            env<span class="op">.</span>storage()<span class="op">.</span>set(<span class="op">&amp;</span>book_id<span class="op">,</span> <span class="op">&amp;</span><span class="cn">false</span>)<span class="op">;</span></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>            <span class="co">// Clear the checkout token</span></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>            <span class="kw">let</span> token_key <span class="op">=</span> <span class="pp">Symbol::</span>from_str(<span class="st">&quot;checkoutToken&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>            env<span class="op">.</span>storage()<span class="op">.</span>remove(<span class="op">&amp;</span>token_key)<span class="op">;</span></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h4 id="ensuring-access-and-revocation">Ensuring Access and
+Revocation</h4>
+<p>This system ensures that eBooks can only be read by one person at a
+time and that access is revoked when the book is returned or the lending
+period expires. By leveraging blockchain technology, we can maintain the
+principles of the first-sale doctrine in the digital realm.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>The first-sale doctrine has been instrumental in balancing the
+interests of copyright holders and the public, fostering a secondary
+market, and enhancing access to intellectual property. However, the
+digital age poses significant challenges to this doctrine. Our
+blockchain eBook checkout proposal offers a modern solution, using
+Stellar and Soroban smart contracts to ensure secure and controlled
+lending of digital works. By adapting the first-sale doctrine to the
+digital era, we can preserve its benefits and continue to promote access
+to knowledge and culture.</p>
+<h3 id="future-work">Future Work</h3>
+<p>Further work could involve: - Integrating the system with existing
+library management software. - Developing user-friendly interfaces for
+library staff and patrons. - Implementing additional features such as
+notifications for overdue books and automated extensions.</p>
+<p>This proposal aims to leverage cutting-edge blockchain technology to
+modernize library operations and improve the accessibility and security
+of digital resources. We look forward to the opportunity to implement
+and demonstrate this innovative solution.</p>
+</body>
+</html>
