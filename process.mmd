@@ -1,0 +1,19 @@
+graph TB
+    subgraph Stellar
+    A[Start] --> B[Create Stellar asset for book]
+    B --> C[Custom properties: isCheckedOut, checkedOutBy, isbn, booktitle, author]
+    C --> D[Issue asset on Stellar network]
+    D --> E[End]
+    end
+    subgraph Contract
+    E1[User requests to borrow a digital book] --> F[Check availability of book]
+    F --> G{Is a physical copy available?}
+    G -- Yes --> H[Generate unique token using Soroban]
+    H --> I[Encrypt eBook with token]
+    I --> J[Update records to mark as checked out]
+    J --> K[Store user address and return date]
+    K --> L[Issue encrypted eBook to user]
+    G -- No --> M[Deny request and notify user]
+    L --> N[End]
+    M --> N[End]
+    end

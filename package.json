@@ -1,0 +1,25 @@
+{
+  "name": "elend",
+  "version": "1.0.0",
+  "description": "Management tools for responsible eBook lending",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ebook",
+    "blockchain",
+    "library",
+    "checkout",
+    "loan",
+    "first-sale",
+    "copyright",
+    "soroban",
+    "stellar"
+  ],
+  "author": "Christopher Robison",
+  "license": "MIT",
+  "dependencies": {
+    "@stellar/stellar-sdk": "^12.1.0"
+  }
+}
