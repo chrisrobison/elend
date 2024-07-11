@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>proposal.v3</title>
+  <title>Responsible eBook Lending with Soroban Smart Contracts</title>
   <style>
     html {
       line-height: 1.5;
@@ -218,21 +218,50 @@
   </style>
 </head>
 <body>
-<h2
-id="the-first-sale-doctrine-a-historical-perspective-and-its-modern-relevance">The
-First-Sale Doctrine: A Historical Perspective and Its Modern
-Relevance</h2>
+<header id="title-block-header">
+<h1 class="title">Responsible eBook Lending with Soroban Smart
+Contracts</h1>
+</header>
+<p><img src="./ebook.webp" /></p>
 <h3 id="introduction">Introduction</h3>
-<p>The first-sale doctrine has been a cornerstone of U.S. copyright law,
-balancing the interests of copyright holders and the public for over a
-century. It has facilitated the resale, rental, and lending of
-copyrighted works, contributing significantly to public access to
-literature, music, and other forms of intellectual property. However,
-the advent of digital technology and the internet has posed new
-challenges to this doctrine. This article explores the history and
-importance of the first-sale doctrine and proposes how blockchain
-technology, specifically through our eBook checkout system, can help
-maintain existing market dynamics in the digital era.</p>
+<p>The first-sale doctrine has been a cornerstone of U.S. copyright law
+since 1908. This “doctrine”, which gives copyright holders the right of
+“first-sale” of their work, has had the difficult task of balancing the
+interests of copyright holders and the interest of the public for over a
+century.</p>
+<p>And some would say that it has done a pretty good job.</p>
+<p>It has provided content creators and copyright holders with an
+enforcable means of being compensated for their hard work and it has
+facilitated the resale, rental, and lending of legally obtained books
+and other copyrighted works to the public without requiring the express
+consent of the publisher to do so.</p>
+<p>Unfortunately, the advent of digital technology and the internet has
+posed new challenges to this doctrine. With a physical book, when you
+loan it out it is no longer available for anyone else to read. Ebooks
+are quite different. Copies made of an eBook file will all be identical;
+no fuzzy letters or generational grain. Each copy is as good as the
+first.</p>
+<p>This leads to a problem.</p>
+<p>If we treated ebooks just like books, any file provided to you would
+be a copy. How would you go about verifying that your ebook was actually
+<em>deleted</em> from your computer once you returned the book?</p>
+<p>So the publishers in all of their wisdom (and efforts to maximize
+profits), began <strong>LICENSING</strong> ebooks instead of selling you
+a copy of the work. When you pay for an ebook, you only have the right
+to read that ebook, usually on a single device, with no guarantee of
+future availability. Publishers have been raising the licensing fees
+charged to libraries and individuals so excessively in recent years that
+Congress is now investigating the practice.</p>
+<p>The publishers are using the digital distribution of ebooks to make
+an end-run around a doctrine that has been providing a balance between
+making money and the public good.</p>
+<p>Below I provide a quick history of the first-sale doctrine, its
+importance and then proffer a solution for maintaining first-sale
+doctrine dynamics for eBooks using blockchain and smart contract
+technology, specifically through the eBook checkout system defined
+below. By utilizing a system where an eBook can be loaned to one patron
+at a time, just like a physical book, we hope to help maintain existing
+dynamics of copyright law in the digital era.</p>
 <h3 id="history-of-the-first-sale-doctrine">History of the First-Sale
 Doctrine</h3>
 <p>The first-sale doctrine originated in the early 20th century with the
@@ -244,21 +273,32 @@ to sell, lend, or otherwise dispose of that copy without permission from
 the copyright holder.</p>
 <h3 id="importance-of-the-first-sale-doctrine">Importance of the
 First-Sale Doctrine</h3>
-<h4 id="enhancing-accessibility-and-affordability">Enhancing
-Accessibility and Affordability</h4>
+<p>The monumental impact that the First-Sale Doctrine has had on the
+dissemination of knowledge to the benefit of humanity cannot be
+overstated. The following short list touches on just a few of the most
+important benefits:</p>
+<ol type="1">
+<li><h4 id="enhancing-accessibility-and-affordability">Enhancing
+Accessibility and Affordability</h4></li>
+</ol>
 <p>The first-sale doctrine has played a crucial role in enhancing the
 accessibility and affordability of copyrighted works. It enabled the
 establishment of libraries, second-hand bookstores, and rental services,
 allowing people to access works without purchasing them new. This has
 been particularly beneficial for educational institutions and low-income
 individuals.</p>
-<h4 id="fostering-a-secondary-market">Fostering a Secondary Market</h4>
+<ol start="2" type="1">
+<li><h4 id="fostering-a-secondary-market">Fostering a Secondary
+Market</h4></li>
+</ol>
 <p>The doctrine has also fostered a robust secondary market for books,
 music, movies, and other media. This market has provided additional
 revenue streams for sellers and wider choices for consumers. It has
 allowed for the circulation of out-of-print works, preserving cultural
 and intellectual heritage.</p>
-<h4 id="balancing-interests">Balancing Interests</h4>
+<ol start="3" type="1">
+<li><h4 id="balancing-interests">Balancing Interests</h4></li>
+</ol>
 <p>By limiting the control of copyright holders over the distribution of
 individual copies after the initial sale, the first-sale doctrine has
 balanced the interests of creators and the public. It has ensured that
@@ -273,14 +313,19 @@ unauthorized dissemination. Technological protection measures and
 digital rights management (DRM) systems have been employed to control
 access and distribution, but these measures often limit legitimate
 secondary uses of digital works.</p>
-<h4 id="impact-of-digital-networks">Impact of Digital Networks</h4>
+<ul>
+<li><h4 id="impact-of-digital-networks">Impact of Digital
+Networks</h4></li>
+</ul>
 <p>Digital networks enable the distribution of works without
 transferring ownership of a physical copy, complicating the application
 of the first-sale doctrine. The ease of copying digital works has led
 copyright holders to retain more control over distribution, often at the
 expense of consumer rights and secondary markets.</p>
-<h4 id="legal-and-technological-measures">Legal and Technological
-Measures</h4>
+<ul>
+<li><h4 id="legal-and-technological-measures">Legal and Technological
+Measures</h4></li>
+</ul>
 <p>The Digital Millennium Copyright Act (DMCA) of 1998 further
 complicated the landscape by providing legal support for technological
 protection measures. While these measures help prevent unauthorized
@@ -289,16 +334,22 @@ applicability of the first-sale doctrine in the digital realm.</p>
 <h3 id="blockchain-ebook-checkout-proposal-a-modern-solution">Blockchain
 eBook Checkout Proposal: A Modern Solution</h3>
 <p>To address these challenges, our blockchain eBook checkout proposal
-leverages the security and transparency of blockchain technology,
+leverages the security and transparency of blockchain technology for
+asset tracking and smart contracts for managing the lending process,
 specifically using the Stellar network and Soroban smart contracts. This
-system aims to uphold the principles of the first-sale doctrine in the
+system aims to uphold the principles of the First-Sale Doctrine in the
 digital age.</p>
 <h4 id="creating-and-issuing-digital-assets">Creating and Issuing
 Digital Assets</h4>
 <p>We propose creating a digital asset for each eBook on the Stellar
 network, with custom properties to manage its lending status. This
-ensures that each digital copy can be uniquely identified and
-tracked.</p>
+ensures that each digital copy can be uniquely identified and tracked.
+Asset creation on Stellar mainnet is not free. Using the XLM price of
+$0.08908 on July 11, 2024, it would cost about $0.34 to create the asset
+with two custom properties on mainnet. This fee acts as means of keeping
+asset spam off the mainnet as well as paying for compute and network
+costs. The option of creating a book-centric network does exist where
+libraries provide nodes if cost is an issue.</p>
 <h4 id="smart-contracts-for-management">Smart Contracts for
 Management</h4>
 <p>Soroban smart contracts manage the checkout and return processes,
@@ -398,15 +449,23 @@ time and that access is revoked when the book is returned or the lending
 period expires. By leveraging blockchain technology, we can maintain the
 principles of the first-sale doctrine in the digital realm.</p>
 <h3 id="conclusion">Conclusion</h3>
-<p>The first-sale doctrine has been instrumental in balancing the
-interests of copyright holders and the public, fostering a secondary
-market, and enhancing access to intellectual property. However, the
-digital age poses significant challenges to this doctrine. Our
-blockchain eBook checkout proposal offers a modern solution, using
-Stellar and Soroban smart contracts to ensure secure and controlled
-lending of digital works. By adapting the first-sale doctrine to the
-digital era, we can preserve its benefits and continue to promote access
-to knowledge and culture.</p>
+<p>For the past 116 years, the “First-Sale Doctrine” of U.S. copyright
+law has defined what rights are granted for books and other copyrighted
+media. These rights must balance the interests of both the copyright
+holders and the public. The authors and publishers need incentive (ie:
+money) to continue producing works and the purchaser of a book wants to
+be able to read it, loan it to a friend or give it away once they are
+done with it. By allowing legally purchased copyrighted books &amp;
+other media to be resold, rented or given away without the permission of
+the copyright holder, we have created a vibrant secondary market in used
+bookstores in addition to providing the public access these works
+through public libraries and lending.</p>
+<p>The digital age, however, poses significant challenges to this
+doctrine. Our blockchain eBook checkout proposal offers a modern
+solution, using Stellar and Soroban smart contracts to ensure secure and
+controlled lending of digital works. By adapting the first-sale doctrine
+to the digital era, we can preserve its benefits and continue to promote
+access to knowledge and culture.</p>
 <h3 id="future-work">Future Work</h3>
 <p>Further work could involve: - Integrating the system with existing
 library management software. - Developing user-friendly interfaces for
