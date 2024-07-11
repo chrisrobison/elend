@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain eBook Checkout System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        header h1 {
+            color: #eee;
+        }
+        p {
+            line-height: 1.6;
+        }
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #333;
+            color: #fff;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>eLend: Blockchain eBook Checkout System</h1>
+</header>
+
+<div class="container">
+    <h2>Introduction</h2>
+    <p>In the digital age, libraries face the challenge of managing digital assets and intellectual property rights efficiently while ensuring that eBooks are accessible to users in a secure manner. Our blockchain eBook checkout system leverages the security and transparency of blockchain technology, specifically using the Stellar network and Soroban smart contracts, to address these challenges.</p>
+
+    <h2>Objectives</h2>
+    <ul>
+        <li>Develop a system to manage eBook lending using Stellar blockchain.</li>
+        <li>Ensure that eBooks can only be checked out by one person at a time.</li>
+        <li>Revoke access to eBooks once they are returned or the lending period expires.</li>
+        <li>Utilize Soroban smart contracts to automate and secure the lending process.</li>
+    </ul>
+
+    <h2>Creating a Stellar Asset for a Book</h2>
+    <p>To create a Stellar asset for an eBook, follow these steps:</p>
+    <ol>
+        <li><strong>Set Up the Stellar Development Environment:</strong> Install Node.js and the Stellar SDK.</li>
+        <li><strong>Create a Keypair for the Issuing Account:</strong> Generate a keypair for the account that will manage the book assets.</li>
+        <li><strong>Fund the Issuing Account:</strong> Use the Stellar testnet friendbot to fund the issuing account.</li>
+        <li><strong>Create and Issue the Book Asset:</strong> Define and issue the digital asset representing the book on the Stellar network.</li>
+    </ol>
+
+    <h2>Soroban Smart Contracts for eBook Management</h2>
+    <p>We use Soroban smart contracts to manage the checkout and return processes. The smart contract generates a unique token for each loan, which is used to encrypt the eBook. The token is invalidated when the book is returned, ensuring that only one person can read the eBook at a time.</p>
+
+    <h2>Encryption Process</h2>
+    <p>The generated token is used to encrypt the eBook, ensuring that only the borrower can access it. Upon return, the token is invalidated, making the eBook unreadable for the previous borrower.</p>
+
+    <h2>Conclusion</h2>
+    <p>By leveraging the Stellar blockchain and Soroban smart contracts, we can create a secure and efficient system for managing eBook lending in libraries. This system ensures that only one person can read an eBook at a time, and access is revoked once the book is returned or the lending period expires.</p>
+
+    <h2>Future Work</h2>
+    <p>Future enhancements could include integrating the system with existing library management software, developing user-friendly interfaces, and implementing features such as notifications for overdue books and automated extensions.</p>
+</div>
+
+<footer>
+    <p>&copy; 2024 Blockchain eBook Checkout System</p>
+</footer>
+
+</body>
+</html>
+
