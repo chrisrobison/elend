@@ -1,19 +1,23 @@
-graph TB
-    subgraph Stellar
-    A[Start] --> B[Create Stellar asset for book]
-    B --> C[Custom properties: isCheckedOut, checkedOutBy, isbn, booktitle, author]
-    C --> D[Issue asset on Stellar network]
-    D --> E[End]
-    end
-    subgraph Contract
-    E1[User requests to borrow a digital book] --> F[Check availability of book]
-    F --> G{Is a physical copy available?}
-    G -- Yes --> H[Generate unique token using Soroban]
-    H --> I[Encrypt eBook with token]
-    I --> J[Update records to mark as checked out]
+graph BT
+    subgraph Soroban Smart Contract
+    E1[User requests to borrow eBook] --> F[Check asset availability. ]
+    F --> G{Is asset available?}
+    G -- Yes --> H[Generate new encryption key for checkout]
+    H --> I[Encrypt eBook with new key]
+    I --> J[Update records: store key,  check out]
     J --> K[Store user address and return date]
     K --> L[Issue encrypted eBook to user]
-    G -- No --> M[Deny request and notify user]
-    L --> N[End]
-    M --> N[End]
+    G -- No --> M[Notify user]
+    M --> N{Ask Waitlist}
+    N -- Yes --> O[Add to waitlist]
+    O --> P[End]
+    N -- No --> P[End]
+    L --> P[End]
     end
+    subgraph Stellar Blockchain
+    A[fas:fa-book Add eBook Asset to Blockchain] --> B[Create Stellar asset for book]
+    B --> C[Add custom properties<hr/><ul><li>checkedout</li><li>isbn</li><li>booktitle</li><li>author</li>]
+    C --> D[Issue asset on Stellar network]
+    D --> E[eBook now available]
+    end
+
