@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Responsible eBook Lending with Soroban Smart Contracts</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        background-color: #2a211c;
+        color: #bdae9d;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #bdae9d;  padding-left: 4px; }
+    div.sourceCode
+      { color: #bdae9d; background-color: #2a211c; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffff00; } /* Alert */
+    code span.an { color: #0066ff; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #44aa43; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #43a8ed; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #049b0a; } /* Char */
+    code span.cn { } /* Constant */
+    code span.co { color: #0066ff; font-weight: bold; font-style: italic; } /* Comment */
+    code span.do { color: #0066ff; font-style: italic; } /* Documentation */
+    code span.dt { text-decoration: underline; } /* DataType */
+    code span.dv { color: #44aa43; } /* DecVal */
+    code span.er { color: #ffff00; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #44aa43; } /* Float */
+    code span.fu { color: #ff9358; font-weight: bold; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #0066ff; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #43a8ed; font-weight: bold; } /* Keyword */
+    code span.op { } /* Operator */
+    code span.pp { font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #049b0a; } /* SpecialChar */
+    code span.ss { color: #049b0a; } /* SpecialString */
+    code span.st { color: #049b0a; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #049b0a; } /* VerbatimString */
+    code span.wa { color: #ffff00; font-weight: bold; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Responsible eBook Lending with Soroban Smart
+Contracts</h1>
+</header>
+<h2 id="smart-ebook-lending">Smart eBook Lending</h2>
+<h3
+id="library-ebook-lending-with-stellar-blockchain-and-soroban-smart-contracts">Library
+eBook Lending with Stellar Blockchain and Soroban Smart Contracts</h3>
+<h3 id="introduction">Introduction</h3>
+<p>The modern day library faces the challenge of managing digital assets
+and intellectual property rights efficiently and legally while ensuring
+that eBooks are accessible to users in a secure manner. Blockchain
+technology, with its inherent security and transparency, offers a
+solution to these challenges. By leveraging the Stellar blockchain for
+tracking assets (ebooks) and Soroban smart contracts for managing access
+to those assets, we can create a system for managing eBook lending that
+ensures that only one person at a time can read that eBook and that
+access is revoked once the lending period ends or the ebook is
+“returned”.</p>
+<h3 id="objectives">Objectives</h3>
+<ol type="1">
+<li>Develop a system to manage eBook lending using Stellar
+blockchain.</li>
+<li>Ensure that eBooks can only be checked out by one person at a
+time.</li>
+<li>Revoke access to eBooks once they are returned or the lending period
+expires.</li>
+<li>Utilize Soroban smart contracts to automate and secure the lending
+process.</li>
+</ol>
+<p>This document describes the various components required to accomplish
+this. Our goal is to enable a process where ebook ownership, in terms of
+copyright law, mirrors that of physical books and provides a
+technological solution that can allow the First-Sale Doctrine be
+maintained.</p>
+<h3
+id="detailed-instructions-for-creating-a-stellar-asset-for-a-book">Detailed
+Instructions for Creating a Stellar Asset for a Book</h3>
+<h4 id="step-1-set-up-the-stellar-development-environment">Step 1: Set
+Up the Stellar Development Environment</h4>
+<ol type="1">
+<li><strong>Install Node.js and npm</strong>:
+<ul>
+<li>Download and install Node.js from the official <a
+href="https://nodejs.org/">website</a>.</li>
+<li>Verify the installation by running <code>node -v</code> and
+<code>npm -v</code> in your terminal.</li>
+</ul></li>
+<li><strong>Install the Stellar SDK</strong>:
+<ul>
+<li><p>Run the following command to install the Stellar SDK:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install stellar-sdk</span></code></pre></div></li>
+</ul></li>
+</ol>
+<h4 id="step-2-create-a-keypair-for-the-issuing-account">Step 2: Create
+a Keypair for the Issuing Account</h4>
+<p>Generate a keypair for the issuing account that will create and
+manage the book assets.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> { Keypair } <span class="op">=</span> <span class="pp">require</span>(<span class="st">&#39;stellar-sdk&#39;</span>)<span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Generate a keypair for the issuing account</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> issuingKeypair <span class="op">=</span> Keypair<span class="op">.</span><span class="fu">random</span>()<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&#39;Issuing Account Keypair:&#39;</span>)<span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&#39;Public Key:&#39;</span><span class="op">,</span> issuingKeypair<span class="op">.</span><span class="fu">publicKey</span>())<span class="op">;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&#39;Secret Key:&#39;</span><span class="op">,</span> issuingKeypair<span class="op">.</span><span class="fu">secret</span>())<span class="op">;</span></span></code></pre></div>
+<h4 id="step-3-fund-the-issuing-account">Step 3: Fund the Issuing
+Account</h4>
+<p>Use the Stellar testnet friendbot to fund the issuing account.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> fetch <span class="op">=</span> <span class="pp">require</span>(<span class="st">&#39;node-fetch&#39;</span>)<span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="kw">function</span> <span class="fu">fundAccount</span>(publicKey) {</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> response <span class="op">=</span> <span class="cf">await</span> <span class="fu">fetch</span>(<span class="vs">`https://friendbot.stellar.org?addr=</span><span class="sc">${</span>publicKey<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> responseJSON <span class="op">=</span> <span class="cf">await</span> response<span class="op">.</span><span class="fu">json</span>()<span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&#39;Friendbot response:&#39;</span><span class="op">,</span> responseJSON)<span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">fundAccount</span>(issuingKeypair<span class="op">.</span><span class="fu">publicKey</span>())<span class="op">;</span></span></code></pre></div>
+<h4 id="step-4-create-and-issue-the-book-asset">Step 4: Create and Issue
+the Book Asset</h4>
+<p>Create a new asset representing the book and issue it on the Stellar
+network.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> { <span class="bu">Server</span><span class="op">,</span> TransactionBuilder<span class="op">,</span> Operation<span class="op">,</span> Asset<span class="op">,</span> Networks } <span class="op">=</span> <span class="pp">require</span>(<span class="st">&#39;stellar-sdk&#39;</span>)<span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Set up the Stellar server</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> server <span class="op">=</span> <span class="kw">new</span> <span class="bu">Server</span>(<span class="st">&#39;https://horizon-testnet.stellar.org&#39;</span>)<span class="op">;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">// Create a new asset representing the book</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> bookAsset <span class="op">=</span> <span class="kw">new</span> <span class="fu">Asset</span>(<span class="st">&#39;BookToken&#39;</span><span class="op">,</span> issuingKeypair<span class="op">.</span><span class="fu">publicKey</span>())<span class="op">;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="kw">function</span> <span class="fu">createBookAsset</span>() {</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Load the issuing account</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> account <span class="op">=</span> <span class="cf">await</span> server<span class="op">.</span><span class="fu">loadAccount</span>(issuingKeypair<span class="op">.</span><span class="fu">publicKey</span>())<span class="op">;</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Create the transaction to issue the asset and set the custom properties</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> transaction <span class="op">=</span> <span class="kw">new</span> <span class="fu">TransactionBuilder</span>(account<span class="op">,</span> {</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fee</span><span class="op">:</span> <span class="cf">await</span> server<span class="op">.</span><span class="fu">fetchBaseFee</span>()<span class="op">,</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        <span class="dt">networkPassphrase</span><span class="op">:</span> Networks<span class="op">.</span><span class="at">TESTNET</span><span class="op">,</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">addOperation</span>(Operation<span class="op">.</span><span class="fu">changeTrust</span>({</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>            <span class="dt">asset</span><span class="op">:</span> bookAsset<span class="op">,</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>            <span class="dt">source</span><span class="op">:</span> issuingKeypair<span class="op">.</span><span class="fu">publicKey</span>()<span class="op">,</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        }))</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">addOperation</span>(Operation<span class="op">.</span><span class="fu">payment</span>({</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>            <span class="dt">destination</span><span class="op">:</span> issuingKeypair<span class="op">.</span><span class="fu">publicKey</span>()<span class="op">,</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>            <span class="dt">asset</span><span class="op">:</span> bookAsset<span class="op">,</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>            <span class="dt">amount</span><span class="op">:</span> <span class="st">&#39;0.0000001&#39;</span><span class="op">,</span> <span class="co">// Minimum amount to create the asset</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        }))</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">addOperation</span>(Operation<span class="op">.</span><span class="fu">manageData</span>({</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>            <span class="dt">name</span><span class="op">:</span> <span class="st">&#39;isCheckedOut&#39;</span><span class="op">,</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>            <span class="dt">value</span><span class="op">:</span> <span class="st">&#39;false&#39;</span><span class="op">,</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>            <span class="dt">source</span><span class="op">:</span> issuingKeypair<span class="op">.</span><span class="fu">publicKey</span>()<span class="op">,</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>        }))</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">addOperation</span>(Operation<span class="op">.</span><span class="fu">manageData</span>({</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>            <span class="dt">name</span><span class="op">:</span> <span class="st">&#39;checkedOutBy&#39;</span><span class="op">,</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>            <span class="dt">value</span><span class="op">:</span> <span class="st">&#39;&#39;</span><span class="op">,</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>            <span class="dt">source</span><span class="op">:</span> issuingKeypair<span class="op">.</span><span class="fu">publicKey</span>()<span class="op">,</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>        }))</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">setTimeout</span>(<span class="dv">100</span>)</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">build</span>()<span class="op">;</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Sign and submit the transaction</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    transaction<span class="op">.</span><span class="fu">sign</span>(issuingKeypair)<span class="op">;</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">await</span> server<span class="op">.</span><span class="fu">submitTransaction</span>(transaction)<span class="op">;</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&#39;Book asset created with isCheckedOut and checkedOutBy properties set&#39;</span>)<span class="op">;</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="fu">createBookAsset</span>()<span class="op">;</span></span></code></pre></div>
+<h3
+id="step-5-create-a-soroban-smart-contract-to-manage-the-ischeckedout-property-and-store-the-request-sender-address">Step
+5: Create a Soroban Smart Contract to Manage the
+<code>isCheckedOut</code> Property and Store the Request Sender
+Address</h3>
+<p>We then create a Soroban smart contract to manage the
+<code>isCheckedOut</code> property of the book asset and store the
+address of the request sender.</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode rust"><code class="sourceCode rust"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="at">#![</span>no_std<span class="at">]</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">soroban_sdk::</span><span class="op">{</span>contractimpl<span class="op">,</span> Env<span class="op">,</span> Symbol<span class="op">,</span> Address<span class="op">,</span> Bytes<span class="op">,</span> BytesN<span class="op">,</span> Timestamp<span class="op">};</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">pub</span> <span class="kw">struct</span> LibraryContract<span class="op">;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>contractimpl<span class="at">]</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="kw">impl</span> LibraryContract <span class="op">{</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">pub</span> <span class="kw">fn</span> check_out_book(env<span class="op">:</span> Env<span class="op">,</span> book_id<span class="op">:</span> Symbol<span class="op">,</span> user<span class="op">:</span> Address<span class="op">,</span> return_date<span class="op">:</span> Timestamp) <span class="op">-&gt;</span> BytesN<span class="op">&lt;</span><span class="dv">32</span><span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> is_checked_out <span class="op">=</span> env<span class="op">.</span>storage()<span class="op">.</span>has(<span class="op">&amp;</span>book_id)<span class="op">;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> is_checked_out <span class="op">{</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>            <span class="kw">let</span> checked_out_status<span class="op">:</span> <span class="dt">bool</span> <span class="op">=</span> env<span class="op">.</span>storage()<span class="op">.</span>get(<span class="op">&amp;</span>book_id)<span class="op">.</span>unwrap()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> checked_out_status <span class="op">{</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>                <span class="pp">panic!</span>(<span class="st">&quot;Book is already checked out&quot;</span>)<span class="op">;</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Update the status to checked out</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>        env<span class="op">.</span>storage()<span class="op">.</span>set(<span class="op">&amp;</span>book_id<span class="op">,</span> <span class="op">&amp;</span><span class="cn">true</span>)<span class="op">;</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Store the address of the user who checked out the book</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> checked_out_by_key <span class="op">=</span> <span class="pp">Symbol::</span>from_str(<span class="st">&quot;checkedOutBy&quot;</span>)<span class="op">;</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>        env<span class="op">.</span>storage()<span class="op">.</span>set(<span class="op">&amp;</span>checked_out_by_key<span class="op">,</span> <span class="op">&amp;</span>user)<span class="op">;</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Store the return date</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> return_date_key <span class="op">=</span> <span class="pp">Symbol::</span>from_str(<span class="st">&quot;returnDate&quot;</span>)<span class="op">;</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>        env<span class="op">.</span>storage()<span class="op">.</span>set(<span class="op">&amp;</span>return_date_key<span class="op">,</span> <span class="op">&amp;</span>return_date)<span class="op">;</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Generate a new token (e.g., a unique identifier for this checkout session)</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> new_token <span class="op">=</span> env<span class="op">.</span>random()<span class="op">.</span>generate()<span class="op">;</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> token_key <span class="op">=</span> <span class="pp">Symbol::</span>from_str(<span class="st">&quot;checkoutToken&quot;</span>)<span class="op">;</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>        env<span class="op">.</span>storage()<span class="op">.</span>set(<span class="op">&amp;</span>token_key<span class="op">,</span> <span class="op">&amp;</span>new_token)<span class="op">;</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>        new_token</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>    <span class="kw">pub</span> <span class="kw">fn</span> return_book(env<span class="op">:</span> Env<span class="op">,</span> book_id<span class="op">:</span> Symbol<span class="op">,</span> user<span class="op">:</span> Address) <span class="op">{</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> is_checked_out <span class="op">=</span> env<span class="op">.</span>storage()<span class="op">.</span>has(<span class="op">&amp;</span>book_id)<span class="op">;</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">!</span>is_checked_out <span class="op">{</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>            <span class="pp">panic!</span>(<span class="st">&quot;Book does not exist&quot;</span>)<span class="op">;</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> checked_out_status<span class="op">:</span> <span class="dt">bool</span> <span class="op">=</span> env<span class="op">.</span>storage()<span class="op">.</span>get(<span class="op">&amp;</span>book_id)<span class="op">.</span>unwrap()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">!</span>checked_out_status <span class="op">{</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>            <span class="pp">panic!</span>(<span class="st">&quot;Book is already returned&quot;</span>)<span class="op">;</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Verify the user returning the book</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> checked_out_by_key <span class="op">=</span> <span class="pp">Symbol::</span>from_str(<span class="st">&quot;checkedOutBy&quot;</span>)<span class="op">;</span></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> stored_user<span class="op">:</span> Address <span class="op">=</span> env<span class="op">.</span>storage()<span class="op">.</span>get(<span class="op">&amp;</span>checked_out_by_key)<span class="op">.</span>unwrap()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> stored_user <span class="op">!=</span> user <span class="op">{</span></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>            <span class="pp">panic!</span>(<span class="st">&quot;Unauthorized return&quot;</span>)<span class="op">;</span></span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Update the status to returned</span></span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>        env<span class="op">.</span>storage()<span class="op">.</span>set(<span class="op">&amp;</span>book_id<span class="op">,</span> <span class="op">&amp;</span><span class="cn">false</span>)<span class="op">;</span></span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Clear the checkout token</span></span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> token_key <span class="op">=</span> <span class="pp">Symbol::</span>from_str(<span class="st">&quot;checkoutToken&quot;</span>)<span class="op">;</span></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>        env<span class="op">.</span>storage()<span class="op">.</span>remove(<span class="op">&amp;</span>token_key)<span class="op">;</span></span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>    <span class="kw">pub</span> <span class="kw">fn</span> verify_token(env<span class="op">:</span> Env<span class="op">,</span> token<span class="op">:</span> BytesN<span class="op">&lt;</span><span class="dv">32</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="dt">bool</span> <span class="op">{</span></span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> token_key <span class="op">=</span> <span class="pp">Symbol::</span>from_str(<span class="st">&quot;checkoutToken&quot;</span>)<span class="op">;</span></span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> stored_token<span class="op">:</span> BytesN<span class="op">&lt;</span><span class="dv">32</span><span class="op">&gt;</span> <span class="op">=</span> env<span class="op">.</span>storage()<span class="op">.</span>get(<span class="op">&amp;</span>token_key)<span class="op">.</span>unwrap()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>        stored_token <span class="op">==</span> token</span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>    <span class="kw">pub</span> <span class="kw">fn</span> invalidate_token(env<span class="op">:</span> Env<span class="op">,</span> book_id<span class="op">:</span> Symbol) <span class="op">{</span></span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> return_date_key <span class="op">=</span> <span class="pp">Symbol::</span>from_str(<span class="st">&quot;returnDate&quot;</span>)<span class="op">;</span></span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> stored_return_date<span class="op">:</span> Timestamp <span class="op">=</span> env<span class="op">.</span>storage()<span class="op">.</span>get(<span class="op">&amp;</span>return_date_key)<span class="op">.</span>unwrap()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> env<span class="op">.</span>now() <span class="op">&gt;</span> stored_return_date <span class="op">{</span></span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>            <span class="co">// Update the status to returned</span></span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>            env<span class="op">.</span>storage()<span class="op">.</span>set(<span class="op">&amp;</span>book_id<span class="op">,</span> <span class="op">&amp;</span><span class="cn">false</span>)<span class="op">;</span></span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>            <span class="co">// Clear the checkout token</span></span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>            <span class="kw">let</span> token_key <span class="op">=</span> <span class="pp">Symbol::</span>from_str(<span class="st">&quot;checkoutToken&quot;</span>)<span class="op">;</span></span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>            env<span class="op">.</span>storage()<span class="op">.</span>remove(<span class="op">&amp;</span>token_key)<span class="op">;</span></span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h3 id="step-6-encrypt-the-ebook-with-the-generated-token">Step 6:
+Encrypt the eBook with the Generated Token</h3>
+<p>We use the generated token to encrypt the eBook. This ensures that
+only the user with the valid token can decrypt and read the eBook.</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> crypto <span class="op">=</span> <span class="pp">require</span>(<span class="st">&#39;crypto&#39;</span>)<span class="op">;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Encrypt the eBook</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">encryptEBook</span>(eBookContent<span class="op">,</span> token) {</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> algorithm <span class="op">=</span> <span class="st">&#39;aes-256-ctr&#39;</span><span class="op">;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> cipher <span class="op">=</span> crypto<span class="op">.</span><span class="fu">createCipheriv</span>(algorithm<span class="op">,</span> token<span class="op">,</span> <span class="bu">Buffer</span><span class="op">.</span><span class="fu">alloc</span>(<span class="dv">16</span><span class="op">,</span> <span class="dv">0</span>))<span class="op">;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> encrypted <span class="op">=</span> <span class="bu">Buffer</span><span class="op">.</span><span class="fu">concat</span>([cipher<span class="op">.</span><span class="fu">update</span>(eBookContent)<span class="op">,</span> cipher<span class="op">.</span><span class="fu">final</span>()])<span class="op">;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> encrypted<span class="op">;</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">// Decrypt the eBook</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">decryptEBook</span>(encryptedEBook<span class="op">,</span> token) {</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> algorithm <span class="op">=</span> <span class="st">&#39;aes-256-ctr&#39;</span><span class="op">;</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> decipher <span class="op">=</span> crypto<span class="op">.</span><span class="fu">createDecipheriv</span>(algorithm<span class="op">,</span> token<span class="op">,</span> <span class="bu">Buffer</span><span class="op">.</span><span class="fu">alloc</span>(<span class="dv">16</span><span class="op">,</span> <span class="dv">0</span>))<span class="op">;</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> decrypted <span class="op">=</span> <span class="bu">Buffer</span><span class="op">.</span><span class="fu">concat</span>([decipher<span class="op">.</span><span class="fu">update</span>(encryptedEBook)<span class="op">,</span> decipher<span class="op">.</span><span class="fu">final</span>()])<span class="op">;</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> decrypted<span class="op">;</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">// Example usage</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> eBookContent <span class="op">=</span> <span class="bu">Buffer</span><span class="op">.</span><span class="fu">from</span>(<span class="st">&#39;This is the content of the eBook&#39;</span>)<span class="op">;</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> token <span class="op">=</span> crypto<span class="op">.</span><span class="fu">randomBytes</span>(<span class="dv">32</span>)<span class="op">;</span> <span class="co">// This should be the token generated by the smart contract</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> encryptedEBook <span class="op">=</span> <span class="fu">encryptEBook</span>(eBookContent<span class="op">,</span> token)<span class="op">;</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&#39;Encrypted eBook:&#39;</span><span class="op">,</span> encryptedEBook)<span class="op">;</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> decryptedEBook <span class="op">=</span> <span class="fu">decryptEBook</span>(encryptedEBook<span class="op">,</span> token)<span class="op">;</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&#39;Decrypted eBook:&#39;</span><span class="op">,</span> decryptedEBook<span class="op">.</span><span class="fu">toString</span>())<span class="op">;</span></span></code></pre></div>
+<h3 id="step-7-integrate-with-the-smart-contract">Step 7: Integrate with
+the Smart Contract</h3>
+<ol type="1">
+<li><strong>Checkout</strong>:
+<ul>
+<li>Call the <code>check_out_book</code> function to get the token.</li>
+<li>Use the token to encrypt the eBook.</li>
+</ul></li>
+<li><strong>Return</strong>:
+<ul>
+<li>Call the <code>return_book</code> function to invalidate the
+token.</li>
+</ul></li>
+<li><strong>Verification</strong>:
+<ul>
+<li>Call the <code>verify_token</code> function to check if the token is
+valid before allowing the user to decrypt and read the eBook.</li>
+</ul></li>
+<li><strong>Auto-Invalidate</strong>:
+<ul>
+<li>Periodically call the <code>invalidate_token</code> function to
+check if the return date has passed and invalidate the token if
+necessary.</li>
+</ul></li>
+</ol>
+<h3 id="tldr">TL;DR</h3>
+<p>By leveraging the Stellar blockchain and Soroban smart contracts, we
+can create a secure and efficient system for managing eBook lending in
+libraries.</p>
+<p>This proposed system adds books to the Stellar blockchain as assets
+with custom properties and deploys a checkout wasm contract that ensures
+that only one person at a time can check out a particular copy of an
+eBook by encrypting the ebook file delivered to the user with a key
+specific to this particular checkout. This key is revoked once the book
+is returned or the lending period expires. This approach not only
+enhances the security and transparency of the lending process but also
+aligns with the goals of preserving intellectual property rights and
+providing seamless access to digital resources.</p>
+</body>
+</html>
