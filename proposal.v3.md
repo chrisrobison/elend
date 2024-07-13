@@ -60,14 +60,113 @@ To address these challenges, our blockchain eBook checkout proposal leverages th
 
 We propose creating a digital asset for each eBook on the Stellar network, with custom properties to manage its lending status. This ensures that each digital copy can be uniquely identified and tracked. Asset creation on Stellar mainnet is not free. Using the XLM price of $0.08908 on July 11, 2024, it would cost about $0.34 to create the asset with two custom properties on mainnet. This fee acts as means of keeping asset spam off the mainnet as well as paying for compute and network costs. The option of creating a book-centric network does exist where libraries provide nodes if cost is an issue.
 
-#### Smart Contracts for Management
+### Instructions for Adding a Stellar Asset for a Book
 
-Soroban smart contracts manage the checkout and return processes, generating a unique token for each loan. This token is used to encrypt the eBook, ensuring that only the borrower can access it. Upon return, the token is invalidated, and the eBook is no longer accessible to the borrower.
+#### Step 1: Set Up the Stellar Development Environment
+
+1. **Install Node.js and npm**:
+   - Download and install Node.js from the official [website](https://nodejs.org/).
+   - Verify the installation by running `node -v` and `npm -v` in your terminal.
+
+2. **Install the Stellar SDK**:
+   - Run the following command to install the Stellar SDK:
+     ```sh
+     npm install stellar-sdk
+     ```
+
+#### Step 2: Create a Keypair for the Issuing Account
+
+Generate a keypair for the issuing account that will create and manage the book assets.
+
+```javascript
+const { Keypair } = require('stellar-sdk');
+
+// Generate a keypair for the issuing account
+const issuingKeypair = Keypair.random();
+
+console.log('Issuing Account Keypair:');
+console.log('Public Key:', issuingKeypair.publicKey());
+console.log('Secret Key:', issuingKeypair.secret());
+```
+
+#### Step 3: Fund the Issuing Account
+
+Use the Stellar testnet friendbot to fund the issuing account.
+
+```javascript
+const fetch = require('node-fetch');
+
+async function fundAccount(publicKey) {
+    const response = await fetch(`https://friendbot.stellar.org?addr=${publicKey}`);
+    const responseJSON = await response.json();
+    console.log('Friendbot response:', responseJSON);
+}
+
+fundAccount(issuingKeypair.publicKey());
+```
+
+#### Step 4: Create and Issue the Book Asset
+
+Create a new asset representing the book and issue it on the Stellar network.
+
+```javascript
+const { Server, TransactionBuilder, Operation, Asset, Networks } = require('stellar-sdk');
+
+// Set up the Stellar server
+const server = new Server('https://horizon-testnet.stellar.org');
+
+// Create a new asset representing the book
+const bookAsset = new Asset('BookToken', issuingKeypair.publicKey());
+
+async function createBookAsset() {
+    // Load the issuing account
+    const account = await server.loadAccount(issuingKeypair.publicKey());
+
+    // Create the transaction to issue the asset and set the custom properties
+    const transaction = new TransactionBuilder(account, {
+        fee: await server.fetchBaseFee(),
+        networkPassphrase: Networks.TESTNET,
+    })
+        .addOperation(Operation.changeTrust({
+            asset: bookAsset,
+            source: issuingKeypair.publicKey(),
+        }))
+        .addOperation(Operation.payment({
+            destination: issuingKeypair.publicKey(),
+            asset: bookAsset,
+            amount: '0.0000001', // Minimum amount to create the asset
+        }))
+        .addOperation(Operation.manageData({
+            name: 'isCheckedOut',
+            value: 'false',
+            source: issuingKeypair.publicKey(),
+        }))
+        .addOperation(Operation.manageData({
+            name: 'checkedOutBy',
+            value: '',
+            source: issuingKeypair.publicKey(),
+        }))
+        .setTimeout(100)
+        .build();
+
+    // Sign and submit the transaction
+    transaction.sign(issuingKeypair);
+    await server.submitTransaction(transaction);
+
+    console.log('Book asset created with isCheckedOut and checkedOutBy properties set');
+}
+
+createBookAsset();
+```
+
+### Step 5: Create a Soroban Smart Contract to Manage the `isCheckedOut` Property and Store the Request Sender Address
+
+We then create a Soroban smart contract to manage the `isCheckedOut` property of the book asset and store the address of the request sender.
 
 ```rust
 #![no_std]
 
-use soroban_sdk::{contractimpl, Env, Symbol, Address, BytesN, Timestamp};
+use soroban_sdk::{contractimpl, Env, Symbol, Address, Bytes, BytesN, Timestamp};
 
 pub struct LibraryContract;
 
@@ -151,19 +250,67 @@ impl LibraryContract {
 }
 ```
 
-#### Ensuring Access and Revocation
+### Step 6: Encrypt the eBook with the Generated Token
 
-This system ensures that eBooks can only be read by one person at a time and that access is revoked when the book is returned or the lending period expires. By leveraging blockchain technology, we can maintain the principles of the first-sale doctrine in the digital realm.
+We use the generated token to encrypt the eBook. This ensures that only the user with the valid token can decrypt and read this particular copy of the eBook. 
+
+This code runs in a node.js environment and must have access to the unencrypted ebook file.
+
+```javascript
+const crypto = require('crypto');
+
+// Encrypt the eBook
+function encryptEBook(eBookContent, token) {
+    const algorithm = 'aes-256-ctr';
+    const cipher = crypto.createCipheriv(algorithm, token, Buffer.alloc(16, 0));
+    const encrypted = Buffer.concat([cipher.update(eBookContent), cipher.final()]);
+    return encrypted;
+}
+
+// Decrypt the eBook
+function decryptEBook(encryptedEBook, token) {
+    const algorithm = 'aes-256-ctr';
+    const decipher = crypto.createDecipheriv(algorithm, token, Buffer.alloc(16, 0));
+    const decrypted = Buffer.concat([decipher.update(encryptedEBook), decipher.final()]);
+    return decrypted;
+}
+
+// Example usage
+const eBookContent = Buffer.from('This is the content of the eBook');
+const token = crypto.randomBytes(32); // This should be the token generated by the smart contract
+
+const encryptedEBook = encryptEBook(eBookContent, token);
+console.log('Encrypted eBook:', encryptedEBook);
+
+const decryptedEBook = decryptEBook(encryptedEBook, token);
+console.log('Decrypted eBook:', decryptedEBook.toString());
+```
+
+### Step 7: Integrate with the Smart Contract
+
+1. **Checkout**:
+   - Call the `check_out_book` function to get the token.
+   - Use the token to encrypt the eBook.
+
+2. **Return**:
+   - Call the `return_book` function to invalidate the token.
+
+3. **Verification**:
+   - Call the `verify_token` function to check if the token is valid before allowing the user to decrypt and read the eBook.
+
+4. **Auto-Invalidate**:
+   - Periodically call the `invalidate_token` function to check if the return date has passed and invalidate the token if necessary.
 
 ### Conclusion
 
-For the past 116 years, the "First-Sale Doctrine" of U.S. copyright law has defined what rights are granted for books and other copyrighted media. These rights must balance the interests of both the copyright holders and the public. The authors and publishers need incentive (ie: money) to continue producing works and the purchaser of a book wants to be able to read it, loan it to a friend or give it away once they are done with it.  By allowing legally purchased copyrighted books &amp; other media to be resold, rented or given away without the permission of the copyright holder, we have created a vibrant secondary market in used bookstores in addition to providing the public access these works through public libraries and lending. 
+For the past 116 years, the "First-Sale Doctrine" of U.S. copyright law has defined what rights are granted for books and other copyrighted media. 
 
-The digital age, however, poses significant challenges to this doctrine. Our blockchain eBook checkout proposal offers a modern solution, using Stellar and Soroban smart contracts to ensure secure and controlled lending of digital works. By adapting the first-sale doctrine to the digital era, we can preserve its benefits and continue to promote access to knowledge and culture.
+The digital age, however, poses significant challenges to this doctrine. Our blockchain eBook checkout proposal offers a modern solution, using the Stellar blockchain for tracking assets (books/ebooks) and Soroban smart contracts to ensure secure and controlled lending of digital works. By adapting the first-sale doctrine to the digital era, we can preserve its benefits and continue to promote access to knowledge and culture.
 
 ### Future Work
 
 Further work could involve:
+  
 - Integrating the system with existing library management software.
 - Developing user-friendly interfaces for library staff and patrons.
 - Implementing additional features such as notifications for overdue books and automated extensions.
