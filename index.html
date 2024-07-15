@@ -1,94 +1,175 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> <!--begin::Head-->
+
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>eLend: Responsible eBook Lending with Smart Contracts</title><!--begin::Primary Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blockchain eBook Checkout System</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 20px 0;
-            text-align: center;
-        }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1, h2 {
-            color: #333;
-        }
-        header h1 {
-            color: #eee;
-        }
-        p {
-            line-height: 1.6;
-        }
-        footer {
-            text-align: center;
-            padding: 10px 0;
-            background-color: #333;
-            color: #fff;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-    </style>
-</head>
-<body>
+    <meta name="title" content="eLend: Responsible eBook Lending with Smart Contracts">
+    <meta name="author" content="Christopher Robison">
+    <meta name="description" content="The eLend project intends to use blockchain technology and smart contracts to enable libraries to lend out ebooks responsibly.">
+    <meta name="keywords" content="ebooks copyright ebook library libraries books book law drm blockchain smartcontract stellar soroban"><!--end::Primary Meta Tags--><!--begin::Fonts-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css" integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q=" crossorigin="anonymous"><!--end::Fonts--><!--begin::Third Party Plugin(OverlayScrollbars)-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/styles/overlayscrollbars.min.css" integrity="sha256-dSokZseQNT08wYEWiz5iLI8QPlKxG+TswNRD8k35cpg=" crossorigin="anonymous"><!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Third Party Plugin(Bootstrap Icons)-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css" integrity="sha256-Qsx5lrStHZyR9REqhUF8iQt73X06c8LGIUPzpOhwRrI=" crossorigin="anonymous"><!--end::Third Party Plugin(Bootstrap Icons)--><!--begin::Required Plugin(AdminLTE)-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="lib/adminlte.css"><!--end::Required Plugin(AdminLTE)--><!-- apexcharts -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css" integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0=" crossorigin="anonymous"><!-- jsvectormap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/css/jsvectormap.min.css" integrity="sha256-+uGLJmmTKOqBr+2E6KDYs/NRsHxSkONXFHUL0fy2O/4=" crossorigin="anonymous">
+</head> <!--end::Head--> <!--begin::Body-->
 
-<header>
-    <h1>eLend: Blockchain eBook Checkout System</h1>
-    <img src="ebook.webp" class="header">
-</header>
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary"> <!--begin::App Wrapper-->
+    <div class="app-wrapper"> <!--begin::Header-->
+        <nav class="app-header navbar navbar-expand bg-body"> <!--begin::Container-->
+            <div class="container-fluid"> <!--begin::Start Navbar Links-->
+                <ul class="navbar-nav">
+                    <li class="nav-item"> <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button"> <i class="bi bi-list"></i> </a> </li>
+                    <li class="nav-item d-none d-md-block"> <a href="#" class="nav-link">Home</a> </li>
+                    <li class="nav-item d-none d-md-block"> <a href="#" class="nav-link">Contact</a> </li>
+                </ul> <!--end::Start Navbar Links--> <!--begin::End Navbar Links-->
+                <!--end::End Navbar Links-->
+            </div> <!--end::Container-->
+        </nav> <!--end::Header--> <!--begin::Sidebar-->
+        <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark"> <!--begin::Sidebar Brand-->
+            <div class="sidebar-brand"> <!--begin::Brand Link--> <a href="./index.html" class="brand-link"> <!--begin::Brand Image--> <img style="border-radius:50%;background:#fff;" src="img/logo.svg" alt="eLend Logo" class="brand-image opacity-75 shadow"> <!--end::Brand Image--> <!--begin::Brand Text--> <span class="brand-text fw-light">eLend</span> <!--end::Brand Text--> </a> <!--end::Brand Link--> </div> <!--end::Sidebar Brand--> <!--begin::Sidebar Wrapper-->
+            <div class="sidebar-wrapper">
+                <nav class="mt-2"> <!--begin::Sidebar Menu-->
+                    <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
+                        <li class="nav-item active"> <a href="index.html" class="nav-link"> <i class="fa-solid fa-house"></i>
+                                <p>Home</p>
+                            </a> </li>
+                        <li class="nav-item"> <a href="overview.html" class="nav-link"> <i class="fa-regular fa-rectangle-list"></i>
+                                <p>Overview</p>
+                            </a> </li>
+                        <li class="nav-item"> <a href="proposal.v3.html" class="nav-link"> <img src="img/proposal.svg" style="color:#fff;height:1.4em;width:1.2em;">
+                                <p>Proposal</p>
+                            </a> </li>
+                        <li class="nav-item"> <a href="#" class="nav-link"> <i class="fa-solid fa-list-check"></i>
+                                <p>
+                                    Project Details
+                                    <i class="nav-arrow bi bi-chevron-right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item"> <a href="./walkthrough.html" class="nav-link"> <i class="fa-solid fa-person-walking"></i>
+                                        <p>Walkthrough</p>
+                                    </a> </li>
+                                <li class="nav-item"> <a href="./technical.html" class="nav-link"> <i class="fa-solid fa-gears"></i>
+                                        <p>Technical</p>
+                                    </a> </li>
+                                <li class="nav-item"> <a href="./process.html" class="nav-link"> <i class="fa-solid fa-diagram-project"></i>
+                                        <p>Process Flowchart</p>
+                                    </a> </li>
+                                <li class="nav-item"> <a href="https://github.com/chrisrobison/elend" class="nav-link"> <i class="fa-brands fa-github"></i>
+                                        <p>GitHub</p>
+                                    </a> </li>
+                            </ul>
+                        </li>
+                        <li class="nav-header" style="border-bottom: 1px solid #ccc;border-top:1px solid #ccc;background-color:#555;color:#fff;" >FURTHER READING</li>
+                        <li class="nav-item"> <a href="#" class="nav-link"> <i class="fa-regular fa-copyright"></i>
+                                <p>
+                                    Copyright Law
+                                    <i class="nav-arrow bi bi-chevron-right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item"> <a href="https://www.govinfo.gov/content/pkg/USCODE-2023-title17/html/USCODE-2023-title17-chap1-sec107.htm" class="nav-link"> <i class="fa-regular fa-copyright"></i>
+                                        <p>US Copyright Law: Fair Use</p>
+                                    </a> </li>
+                                <li class="nav-item"> <a href="https://www.eff.org/cases/hachette-v-internet-archive" class="nav-link"> <i class="fa-solid fa-scale-balanced"></i>
+                                        <p>Hachette v. Internet Archive</p>
+                                    </a> </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"> <a href="./background.pdf" class="nav-link"> <i class="fa-solid fa-file-pdf"></i>
+                                <p>"The First Sale Doctrine..."</p>
+                            </a> </li>
+                        <li class="nav-header"></li>
+                        <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-circle text-danger"></i>
+                                <p class="text">Important</p>
+                            </a> </li>
+                        <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-circle text-warning"></i>
+                                <p>Warning</p>
+                            </a> </li>
+                        <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-circle text-info"></i>
+                                <p>Informational</p>
+                            </a> </li>
+                    </ul> <!--end::Sidebar Menu-->
+                </nav>
+            </div> <!--end::Sidebar Wrapper-->
+        </aside> <!--end::Sidebar--> <!--begin::App Main-->
+        <main class="app-main" style="overflow:hidden"> <!--begin::App Content Header-->
+            <iframe id="viewer" name="viewer" src="home.html" height="100%" width="100%"></iframe>
+        </main> <!--end::App Main--> <!--begin::Footer-->
+        <footer class="app-footer"> <!--begin::To the end-->
+            <div class="float-end d-none d-sm-inline">Anything you want</div> <!--end::To the end--> <!--begin::Copyright--> <strong>
+                Copyright &copy; 2014-2024&nbsp;
+                <a href="https://adminlte.io" class="text-decoration-none">AdminLTE.io</a>.
+            </strong>
+            All rights reserved.
+            <!--end::Copyright-->
+        </footer> <!--end::Footer-->
+    </div> <!--end::App Wrapper--> <!--begin::Script--> <!--begin::Third Party Plugin(OverlayScrollbars)-->
+    <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/browser/overlayscrollbars.browser.es6.min.js" integrity="sha256-H2VM7BKda+v2Z4+DRy69uknwxjyDRhszjXFhsL4gD3w=" crossorigin="anonymous"></script> <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha256-whL0tQWoY1Ku1iskqPFvmZ+CHsvmRWx/PIoEvIeWh4I=" crossorigin="anonymous"></script> <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha256-YMa+wAM6QkVyz999odX7lPRxkoYAan8suedu4k2Zur8=" crossorigin="anonymous"></script> <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
+    <script src="lib/adminlte.js"></script> <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
+    <script>
+        const SELECTOR_SIDEBAR_WRAPPER = ".sidebar-wrapper";
+        const Default = {
+            scrollbarTheme: "os-theme-light",
+            scrollbarAutoHide: "leave",
+            scrollbarClickScroll: true,
+        };
+        document.addEventListener("DOMContentLoaded", function() {
+            const sidebarWrapper = document.querySelector(SELECTOR_SIDEBAR_WRAPPER);
+            if (
+                sidebarWrapper &&
+                typeof OverlayScrollbarsGlobal?.OverlayScrollbars !== "undefined"
+            ) {
+                OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
+                    scrollbars: {
+                        theme: Default.scrollbarTheme,
+                        autoHide: Default.scrollbarAutoHide,
+                        clickScroll: Default.scrollbarClickScroll,
+                    },
+                });
+            }
+        });
+    </script> <!--end::OverlayScrollbars Configure--> <!-- OPTIONAL SCRIPTS --> <!-- sortablejs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+    (function() {
+        const $ = str => document.querySelector(str);
+        const $$ = str => document.querySelectorAll(str);
+        
+        const app = {
+            init() {
+                $$(".nav-link").forEach(el=>{ el.onclick = app.loadLink; });
+            },
+            click(evt) {
+                const tgt = evt.target.closest("a");
+                if (tgt && tgt.href) {
+                }
+            },
+            loadLink(evt) {
+                const tgt = evt.target.closest("a");
+                if (tgt) {
+                    let link = tgt.getAttribute("href");
 
-<div class="container">
-    <h2>Introduction</h2>
-    <p>In the digital age, libraries face the challenge of managing digital assets and intellectual property rights efficiently while ensuring that eBooks are accessible to users in a secure manner. Our blockchain eBook checkout system leverages the security and transparency of blockchain technology, specifically using the Stellar network and Soroban smart contracts, to address these challenges.</p>
+                    if (link && link !== "#") {
+                        $("#viewer").contentWindow.location.href = link;
+                    }
+                    evt.preventDefault();
+                    return false;
+                }
+            }
 
-    <h2>Objectives</h2>
-    <ul>
-        <li>Develop a system to manage eBook lending using Stellar blockchain.</li>
-        <li>Ensure that eBooks can only be checked out by one person at a time.</li>
-        <li>Revoke access to eBooks once they are returned or the lending period expires.</li>
-        <li>Utilize Soroban smart contracts to automate and secure the lending process.</li>
-    </ul>
+        };
+        app.init();
+        window.app = app;
+    })();
+    </script>
+</body><!--end::Body-->
 
-    <h2>Creating a Stellar Asset for a Book</h2>
-    <p>To create a Stellar asset for an eBook, follow these steps:</p>
-    <ol>
-        <li><strong>Set Up the Stellar Development Environment:</strong> Install Node.js and the Stellar SDK.</li>
-        <li><strong>Create a Keypair for the Issuing Account:</strong> Generate a keypair for the account that will manage the book assets.</li>
-        <li><strong>Fund the Issuing Account:</strong> Use the Stellar testnet friendbot to fund the issuing account.</li>
-        <li><strong>Create and Issue the Book Asset:</strong> Define and issue the digital asset representing the book on the Stellar network.</li>
-    </ol>
-
-    <h2>Soroban Smart Contracts for eBook Management</h2>
-    <p>We use Soroban smart contracts to manage the checkout and return processes. The smart contract generates a unique token for each loan, which is used to encrypt the eBook. The token is invalidated when the book is returned, ensuring that only one person can read the eBook at a time.</p>
-
-    <h2>Encryption Process</h2>
-    <p>The generated token is used to encrypt the eBook, ensuring that only the borrower can access it. Upon return, the token is invalidated, making the eBook unreadable for the previous borrower.</p>
-
-    <h2>Conclusion</h2>
-    <p>By leveraging the Stellar blockchain and Soroban smart contracts, we can create a secure and efficient system for managing eBook lending in libraries. This system ensures that only one person can read an eBook at a time, and access is revoked once the book is returned or the lending period expires.</p>
-
-    <h2>Future Work</h2>
-    <p>Future enhancements could include integrating the system with existing library management software, developing user-friendly interfaces, and implementing features such as notifications for overdue books and automated extensions.</p>
-</div>
-
-<footer>
-    <p>&copy; 2024 Blockchain eBook Checkout System</p>
-</footer>
-
-</body>
 </html>
-
