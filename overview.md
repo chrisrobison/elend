@@ -1,8 +1,6 @@
-# eLend Project Overview
+### Project Architecture
 
-### Project Goals
-
-**eLend** intends to be a means of legally loaning out eBooks by utilizing blockchain and smart contract technology to manage the checkout process.
+The **eLend** checkout system is built on a number of technologies to accomplish its goal lending "one ebook to one reader" at a time, respecting copyright law. This document outlines the technologies used and provides a little commentary on some of the benefits, drawbacks and reasoning behind the choices made.
 
 ### Stellar Blockchain
 
@@ -24,4 +22,3 @@
 
 Soroban aims to expand Stellar's use cases by enabling more sophisticated applications, such as decentralized finance (DeFi), non-fungible tokens (NFTs), and more complex financial instruments.
 
-If you have any specific questions or need more detailed information about Stellar or Soroban, feel free to ask!

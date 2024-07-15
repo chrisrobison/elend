@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Technology Overview</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Technology Overview</h1>
+</header>
+<h3 id="project-architecture">Project Architecture</h3>
+<p>The <strong>eLend</strong> checkout system is built on a number of
+technologies to accomplish its goal lending “one ebook to one reader” at
+a time, respecting copyright law. This document outlines the
+technologies used and provides a little commentary on some of the
+benefits, drawbacks and reasoning behind the choices made.</p>
+<h3 id="stellar-blockchain">Stellar Blockchain</h3>
+<p><strong>Stellar</strong> is an open-source, decentralized blockchain
+platform designed to facilitate fast, low-cost, cross-border
+transactions. Key features of the Stellar blockchain include:</p>
+<ul>
+<li><strong>Stellar Consensus Protocol (SCP)</strong>: Unlike
+proof-of-work or proof-of-stake, SCP uses a federated Byzantine
+agreement (FBA) model, which allows for quicker consensus without the
+need for extensive energy consumption.</li>
+<li><strong>Lumens (XLM)</strong>: The native currency of the Stellar
+network, used to facilitate transactions and prevent spam.</li>
+<li><strong>Asset Issuance and Transfer</strong>: Stellar allows users
+to issue their own assets (tokens) and transfer them over the network.
+This makes it suitable for applications like remittances, micropayments,
+and tokenization of assets.</li>
+<li><strong>Decentralized Exchange (DEX)</strong>: Built into the
+Stellar protocol, the DEX allows users to trade assets directly on the
+network without the need for a central exchange.</li>
+</ul>
+<h3 id="soroban-smart-contracts">Soroban Smart Contracts</h3>
+<p><strong>Soroban</strong> is Stellar’s smart contract platform,
+designed to bring more functionality and flexibility to the Stellar
+ecosystem. Key aspects of Soroban smart contracts include:</p>
+<ul>
+<li><strong>Turing-Complete Language</strong>: Soroban is designed to
+support a Turing-complete language, enabling the creation of more
+complex and flexible smart contracts compared to previous capabilities
+on Stellar.</li>
+<li><strong>Interoperability</strong>: Soroban smart contracts can
+interact with Stellar’s existing features, such as asset issuance and
+the decentralized exchange, allowing for seamless integration with
+existing functionalities.</li>
+<li><strong>Performance and Scalability</strong>: Soroban is optimized
+for high performance and scalability, ensuring that smart contracts can
+execute efficiently even under high transaction volumes.</li>
+<li><strong>Security</strong>: Soroban places a strong emphasis on
+security, incorporating features to prevent common smart contract
+vulnerabilities and ensuring robust contract execution.</li>
+</ul>
+<p>Soroban aims to expand Stellar’s use cases by enabling more
+sophisticated applications, such as decentralized finance (DeFi),
+non-fungible tokens (NFTs), and more complex financial instruments.</p>
+</body>
+</html>
