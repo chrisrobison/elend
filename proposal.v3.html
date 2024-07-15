@@ -255,13 +255,13 @@ Congress is now investigating the practice.</p>
 <p>The publishers are using the digital distribution of ebooks to make
 an end-run around a doctrine that has been providing a balance between
 making money and the public good.</p>
-<p>Below I provide a quick history of the first-sale doctrine, its
-importance and then proffer a solution for maintaining first-sale
-doctrine dynamics for eBooks using blockchain and smart contract
-technology, specifically through the eBook checkout system defined
-below. By utilizing a system where an eBook can be loaned to one patron
-at a time, just like a physical book, we hope to help maintain existing
-dynamics of copyright law in the digital era.</p>
+<p>This document provides a quick history of the first-sale doctrine,
+its importance and then outlines a technical solution for maintaining
+first-sale doctrine dynamics for eBooks using blockchain and smart
+contract technology, specifically through the eBook checkout system
+defined below. By utilizing a system where an eBook can be loaned to one
+patron at a time, just like a physical book, we hope to help maintain
+existing dynamics of copyright law in the digital era.</p>
 <h3 id="history-of-the-first-sale-doctrine">History of the First-Sale
 Doctrine</h3>
 <p>The first-sale doctrine originated in the early 20th century with the
@@ -600,7 +600,54 @@ check if the return date has passed and invalidate the token if
 necessary.</li>
 </ul></li>
 </ol>
-<h3 id="conclusion">Conclusion</h3>
+<h3 id="project-deliverables">Project Deliverables</h3>
+<p>The following list of items will be complete at 4 weeks:</p>
+<ol type="1">
+<li><strong>Create accounts</strong>:</li>
+</ol>
+<ul>
+<li>Create reference ‘librarian’ account on Stellar network. This
+account will own the assets.</li>
+<li>Create example ‘user’ account on Stellar for demonstration
+purposes.</li>
+</ul>
+<ol start="2" type="1">
+<li><strong>Create Soroban Smart Contract for eLoan</strong>:</li>
+</ol>
+<ul>
+<li>Soroban Smart Contract created as defined.</li>
+</ul>
+<ol start="3" type="1">
+<li><strong>Add 5 assets(books) to blockchain</strong>:</li>
+</ol>
+<ul>
+<li>Setup five(5) eBooks on Stellar blockchain for testing</li>
+</ul>
+<ol start="4" type="1">
+<li><strong>Create and deploy node.js Checkout Server</strong>:</li>
+</ol>
+<ul>
+<li>Deliver requested ebook to user
+<ul>
+<li>Lookup asset on blockchain</li>
+<li>Encrypt ebook file with checkout token</li>
+<li>Deliver encrypted ebook file to user</li>
+</ul></li>
+<li>Handle book returns
+<ul>
+<li>Invalidate token/expire keys</li>
+<li>Update asset status on blockchain</li>
+</ul></li>
+</ul>
+<ol start="5" type="1">
+<li><strong>Document and Demonstrate end-to-end Checkout
+Process</strong></li>
+</ol>
+<ul>
+<li>Clear documentation of checkout process</li>
+<li>Simple demonstration of ebook checkout from start to finish</li>
+</ul>
+<h3 id="tldr">TL;DR</h3>
 <p>For the past 116 years, the “First-Sale Doctrine” of U.S. copyright
 law has defined what rights are granted for books and other copyrighted
 media.</p>

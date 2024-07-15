@@ -18,7 +18,7 @@ So the publishers in all of their wisdom (and efforts to maximize profits), bega
 
 The publishers are using the digital distribution of ebooks to make an end-run around a doctrine that has been providing a balance between making money and the public good.
 
-Below I provide a quick history of the first-sale doctrine, its importance and then proffer a solution for maintaining first-sale doctrine dynamics for eBooks using blockchain and smart contract technology, specifically through the eBook checkout system defined below. By utilizing a system where an eBook can be loaned to one patron at a time, just like a physical book, we hope to help maintain existing dynamics of copyright law in the digital era.
+This document provides a quick history of the first-sale doctrine, its importance and then outlines a technical solution for maintaining first-sale doctrine dynamics for eBooks using blockchain and smart contract technology, specifically through the eBook checkout system defined below. By utilizing a system where an eBook can be loaned to one patron at a time, just like a physical book, we hope to help maintain existing dynamics of copyright law in the digital era.
 
 ### History of the First-Sale Doctrine
 
@@ -301,7 +301,30 @@ console.log('Decrypted eBook:', decryptedEBook.toString());
 4. **Auto-Invalidate**:
    - Periodically call the `invalidate_token` function to check if the return date has passed and invalidate the token if necessary.
 
-### Conclusion
+### Project Deliverables
+
+The following list of items will be complete at 4 weeks:
+
+1. **Create accounts**:
+  - Create reference 'librarian' account on Stellar network. This account will own the assets.
+  - Create example 'user' account on Stellar for demonstration purposes.
+2. **Create Soroban Smart Contract for eLoan**:
+  - Soroban Smart Contract created as defined.
+3. **Add 5 assets(books) to blockchain**:
+  - Setup five(5) eBooks on Stellar blockchain for testing
+4. **Create and deploy node.js Checkout Server**:
+  - Deliver requested ebook to user
+    - Lookup asset on blockchain
+    - Encrypt ebook file with checkout token
+    - Deliver encrypted ebook file to user
+  - Handle book returns 
+    - Invalidate token/expire keys
+    - Update asset status on blockchain
+5. **Document and Demonstrate end-to-end Checkout Process**
+  - Clear documentation of checkout process
+  - Simple demonstration of ebook checkout from start to finish
+
+### TL;DR
 
 For the past 116 years, the "First-Sale Doctrine" of U.S. copyright law has defined what rights are granted for books and other copyrighted media. 
 
